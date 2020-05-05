@@ -179,14 +179,21 @@ edges = canny(blur_gray, low_threshold, high_threshold)
 imshape = image.shape
 ysize = image.shape[0]
 xsize = image.shape[1]
-vertices = np.array([[(0,ysize),(2.3*xsize/5, 1.1*ysize/2), (2.6*xsize/5, 1.1*ysize/2), (xsize,ysize)]], dtype=np.int32)
+vertices = np.array([[(0,ysize),(2.4*xsize/5, 1.16*ysize/2), (2.6*xsize/5, 1.16*ysize/2), (xsize,ysize)]], dtype=np.int32)
 masked_edges = region_of_interest(edges, vertices)
+
+# Display the image and show region and color selections
+plt.imshow(image)
+x = [0,2.4*xsize/5,2.6*xsize/5,xsize ]
+y = [ysize, 1.16*ysize/2, 1.16*ysize/2,ysize]
+plt.plot(x, y, 'b--', lw=2)
+plt.show()
 
 rho = 1 # 2 #distance resolution in pixels of the Hough grid
 theta = np.pi/180 # angular resolution in radians of the Hough grid
 threshold = 1 #15#    # minimum number of votes (intersections in Hough grid cell)
 min_line_len = 10 #40 #minimum number of pixels making up a line
-max_line_gap = 4    # 20 #maximum gap in pixels between connectable line segments
+max_line_gap = 5    # 20 #maximum gap in pixels between connectable line segments
 line_image = hough_lines(masked_edges, rho, theta, threshold, min_line_len, max_line_gap)
 
 lines_edges = weighted_img(line_image, image, α=0.8, β=1., γ=0.)
