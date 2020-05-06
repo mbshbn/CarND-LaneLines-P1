@@ -11,7 +11,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./test_images_output/output.jpg "Grayscale"
+[image1]: ./test_images_output/output.png "Grayscale"
 [image2]: ./examples/shortcoming.jpg "shortcoming"
 [image3]: ./examples/shortcoming2.jpg "shortcoming"
 
@@ -37,8 +37,8 @@ One potential shortcoming would be what would happen when the line's curvature i
 
 Another shortcoming could be misleading with different signs on the street that are ignored. For example the following lines:
 
-![alt text][image2 | width=100]
-![alt text][image3 | width=100]
+![alt text][image2]
+![alt text][image3]
 
 ### 3. Suggest possible improvements to your pipeline
 
