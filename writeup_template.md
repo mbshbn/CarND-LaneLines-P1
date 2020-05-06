@@ -19,7 +19,7 @@ The goals / steps of this project are the following:
 
 ### Reflection
 
-### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
+### 1. Describe your pipeline. 
 
 My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I applied a Gaussian smoothing. Next, the Canny function is applied. Then, a polygon area with four vertices is selected, and then the Hough lines are drawn. In the end, the image is combined with the output with Hough lines.
 
@@ -37,8 +37,8 @@ One potential shortcoming would be what would happen when the line's curvature i
 
 Another shortcoming could be misleading with different signs on the street that are ignored. For example the following lines:
 
-![alt text][image2]
-![alt text][image3]
+![alt text][image2 | width=100]
+![alt text][image3 | width=100]
 
 ### 3. Suggest possible improvements to your pipeline
 
