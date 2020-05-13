@@ -14,7 +14,8 @@ The goals / steps of this project are the following:
 
 [image4]: ./test_videos_output/solidWhiteRight_cover_video.png "cover white right video"
 [image5]: ./test_videos_output/solidYellowLeft_cover_video.png "cover yellow left video"
-solidWhiteRight_video
+
+
 ---
 
 ### Pipeline (single images)
