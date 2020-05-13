@@ -7,7 +7,8 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./test_images_output/output.png "Grayscale"
+[image1]: ./test_images_output/output.png "detected lanes1"
+[image11]: ./test_images_output/output2.png "detected lanes2"
 [image2]: ./examples/shortcoming.jpg "shortcoming"
 [image3]: ./examples/shortcoming2.jpg "shortcoming"
 
@@ -15,8 +16,14 @@ The goals / steps of this project are the following:
 
 ### Pipeline (single images)
 
-My pipeline consisted of the follwoing steps. 
-
+My pipeline consisted of the follwoing steps, and the code is called `Lane_line_finding.py`.
+I used the following libraries
+```
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import numpy as np
+import cv2
+```
 1. Conversion to grayscale using `cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)`
 1. Gaussian smoothing using `cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)`
 1. Edge Detection using Canny algorithm, using `cv2.Canny(img, low_threshold, high_threshold)`
@@ -28,10 +35,18 @@ My pipeline consisted of the follwoing steps.
 
 Here is the final result, showing the detcetd lines with the red color:
 
-<p align="center">  <img width="460" height="300" src="./test_images_output/output.png "Grayscale""></p>
+example 1             |  example 2
+:-------------------------:|:-------------------------:
+![alt text][image1]  |  ![alt text][image11] 
 
-### 2. Potential shortcomings with the current pipeline
+### Videos
+A video consists of images, so I used the above pipeline and applied it to each image of the video using `clip1.fl_image(Lane_Finding_Pipeline_image)`. Not that this is the same pipeline explained above. To do so, I imported the following libraries:
+```
+from moviepy.editor import VideoFileClip
+from IPython.display import HTML
+```
 
+### Potential shortcomings with the current pipeline
 
 One potential shortcoming would happen when the line's curvature is large. This is overcame in another project called [Advanced Lane Line detection](https://github.com/mbshbn/CarND-Advanced-Lane-Lines) in my github repo.
 
@@ -42,7 +57,8 @@ a             |  b
 ![alt text][image2]  |  ![alt text][image3] 
 
 
-### 3. Possible improvements to the pipeline
+
+### Possible improvements to the pipeline
 
 A possible improvement would be to considering higher-order polynomial lines, not only straight lines.
 
