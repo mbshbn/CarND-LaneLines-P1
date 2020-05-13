@@ -202,7 +202,7 @@ os.listdir("test_images/")
 image_path = "test_images/solidWhiteCurve.jpg"
 image_path = 'test_images/solidWhiteRight.jpg'
 #image_path = 'test_images/solidYellowCurve.jpg'
-#image_path = 'test_images/solidYellowCurve2.jpg'
+image_path = 'test_images/solidYellowCurve2.jpg'
 #image_path = 'test_images/solidYellowLeft.jpg'
 #image_path = 'test_images/whiteCarLaneSwitch.jpg'
 image = mpimg.imread(image_path)
@@ -215,7 +215,7 @@ lines_edges = Lane_Finding_Pipeline_image(image)
 plt.imshow(lines_edges)  # if you wanted to show a single color channel image called 'gray', for example, call as plt.imshow(gray, cmap='gray')
 plt.show()
 # then save them to the test_images_output directory.
-mpimg.imsave("test_images_output/output2.png", lines_edges)
+mpimg.imsave("test_images_output/output3.png", lines_edges)
 """
 # Import everything needed to edit/save/watch video clips
 from moviepy.editor import VideoFileClip
