@@ -12,6 +12,8 @@ The goals / steps of this project are the following:
 [image2]: ./examples/shortcoming.jpg "shortcoming"
 [image3]: ./examples/shortcoming2.jpg "shortcoming"
 
+[image4]: ./test_video_output/solidWhiteRight_video.jpg "cover white right video"
+solidWhiteRight_video
 ---
 
 ### Pipeline (single images)
@@ -47,7 +49,7 @@ from IPython.display import HTML
 ```
 example 1             |  example 2
 :-------------------------:|:-------------------------:
-[![alt text][image1]](https://youtu.be/Nyq5kYjLoSI) |  ![alt text][image11] 
+[![alt text][image4]](https://youtu.be/Nyq5kYjLoSI) |  ![alt text][image11] 
 
 ### Potential shortcomings with the current pipeline
 
