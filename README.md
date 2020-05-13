@@ -55,9 +55,9 @@ Video 1             |  Video 2
 
 ### Potential shortcomings with the current pipeline
 
-One potential shortcoming would happen when the line's curvature is large. This is overcame in another project called [Advanced Lane Line detection](https://github.com/mbshbn/CarND-Advanced-Lane-Lines) in my github repo.
+One potential shortcoming would happen when the line's curvature is large. This is overcome in another project called [Advanced Lane Line detection](https://github.com/mbshbn/CarND-Advanced-Lane-Lines) in my github repo.
 
-Another shortcoming could be missled with different signs on the street that are ignored. For example the following lines:
+Another shortcoming could be misled with different signs on the street that are ignored. For example the following lines:
 
 Example 1             |  Example 2
 :-------------------------:|:-------------------------:
@@ -69,4 +69,4 @@ Example 1             |  Example 2
 
 A possible improvement would be to considering higher-order polynomial lines, not only straight lines.
 
-Another potential improvement could be to considering different local signs on the ground to avoid being missled with them.
+Another potential improvement could be to considering different local signs on the ground to avoid being misled with them.
