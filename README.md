@@ -13,8 +13,8 @@ The goals / steps of this project are the following:
 [image3]: ./examples/shortcoming2.jpg "shortcoming"
 
 ---
-./test_videos_output/solidWhiteRight.mp4
-[![Alt text](./test_videos_output/solidWhiteRight.mp4)](./test_videos_output/solidWhiteRight.mp4)
+
+[[image1])](./test_videos_output/solidWhiteRight.mp4)
 
 ### Pipeline (single images)
 
