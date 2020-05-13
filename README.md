@@ -13,42 +13,37 @@ The goals / steps of this project are the following:
 
 ---
 
-### Reflection
+### Pipeline (single images)
 
-### 1. Describe your pipeline. 
+My pipeline consisted of the follwoing steps. 
 
-My pipeline consisted of 5 steps. 
+1- Conversion to grayscale using `cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)`
+2- Gaussian smoothing uisng `cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)`
+3- Edge Detection using Canny algorithm, using `cv2.Canny(img, low_threshold, high_threshold)`
+4- Defining the region of interest. This is the area in front of the fixed camera that the lanes appear. I defined an array of four points as the verticies of the polygon, and fill the pixels inside the polygon with a color `cv2.fillPoly`. Then the function returns the image only where the mask pixels are nonzero using `cv2.bitwise_and`.
+5- Finding line segments in the binary image using the probabilistic Hough transform using `cv2.HoughLinesP`. The inputs to this function are the distance and anular resolution in pixels of the Hough grid. Also, the minimum number of votes (intersections in Hough grid cell), the minimum number of pixels making up a line, and the maximum gap in pixels between connectable line segments. 
+  5-1 mapping out the full extent of the lane to visualize the result, I defined a function called `draw_lines`. To draw a single line on the left and right lanes, it extrapolates the lines uisng `np.polyfit` and `np.poly1d`. The left and right lines are distinguished using their slope. Usually, the slope is about 0.6 or -0.6. Having this number, to avoid small white and yellow marks on the ground affecting the lines, those who have a slope very different than these usual slopes are ignored. Although this is applied to filter the lines before extrapolating, sometimes the extrapolated line may have a slope very different than the usual slope. To avoid reporting wrong lines, the lines after extrapolation are filtered, and those that do not have a usual slope are ignored.  
+6- Combining the oiginal image and the output of the prevoius step using `cv2.addWeighted`.
 
-* Conversion to grayscale using `cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)`
-* Gaussian smoothing uisng `cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)`
-* Edge Detection using Canny algorithm, using `cv2.Canny(img, low_threshold, high_threshold)`
-* Defining the region of interest. This is the area in front of the fixed camera that the lanes appear. I defined an array of four points as the verticies of the polygon, and fill the pixels inside the polygon with a color `cv2.fillPoly`. Then the function returns the image only where the mask pixels are nonzero using `cv2.bitwise_and`.
-* Finding line segments in the binary image using the probabilistic Hough transform using `cv2.HoughLinesP`. The inputs to this function are the distance and anular resolution in pixels of the Hough grid. Also, the minimum number of votes (intersections in Hough grid cell), the minimum number of pixels making up a line, and the maximum gap in pixels between connectable line segments. 
-  * To visualize the result, I defined a function called `draw_lines`.
-* Combining the oiginal image and the output of the prevoius step using `cv2.addWeighted`.
-    
-    
-the Hough lines are drawn. In the end, the image is combined with the output with Hough lines.
 
-To draw a single line on the left and right lanes, I modified the draw_lines() function by extrapolating lines. The left and right lines are distinguished using their slope. usually, the slope is about 0.6 or -0.6. Having this number, to avoid small white and yellow marks on the ground affecting the lines, those who have slope very different than these normal slopes are ignored. Although this is applied to filter lines before extrapolating, sometimes the extrapolated line may have a slope very different than the usual range. to avoid reporting wrong lines, the lines after extrapolation are filtered, and those that do not have a usual slope are ignored.  
+Here is the final result:
 
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
-
-![alt text][image1]
-
+<p align="center">  <img width="460" height="300" src="./test_images_output/output.png "Grayscale""></p>
 
 ### 2. Potential shortcomings with the current pipeline
 
 
-One potential shortcoming would be what would happen when the line's curvature is large.
+One potential shortcoming would happen when the line's curvature is large. This is overcame in another project called [Advanced Lane Line detection](https://github.com/mbshbn/CarND-Advanced-Lane-Lines) in my github repo.
 
-Another shortcoming could be misleading with different signs on the street that are ignored. For example the following lines:
+Another shortcoming could be missled with different signs on the street that are ignored. For example the following lines:
 
-![alt text][image2]
-![alt text][image3]
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+![alt text][image2]  |  ![alt text][image2] 
+
 
 ### 3. Possible improvements to the pipeline
 
 A possible improvement would be to considering higher-order polynomial lines, not only straight lines.
 
-Another potential improvement could be to considering different local signs on the ground to avoid misleading with them.
+Another potential improvement could be to considering different local signs on the ground to avoid being missled with them.
