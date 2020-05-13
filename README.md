@@ -12,9 +12,10 @@ The goals / steps of this project are the following:
 [image2]: ./examples/shortcoming.jpg "shortcoming"
 [image3]: ./examples/shortcoming2.jpg "shortcoming"
 
+[image4]: ./test_video_output/solidWhiteRight_cover_video.jpg "cover white right video"
+[image5]: ./test_video_output/solidYellowLeft_cover_video.jpg "cover yellow left video"
+solidWhiteRight_video
 ---
-./test_videos_output/solidWhiteRight.mp4
-[![Alt text](./test_videos_output/solidWhiteRight.mp4)](./test_videos_output/solidWhiteRight.mp4)
 
 ### Pipeline (single images)
 
@@ -47,6 +48,9 @@ A video consists of images, so I used the above pipeline and applied it to each 
 from moviepy.editor import VideoFileClip
 from IPython.display import HTML
 ```
+Image 1             |  Image 2
+:-------------------------:|:-------------------------:
+[![alt text][image4]](https://youtu.be/Nyq5kYjLoSI) |  [![alt text][image5]](https://youtu.be/_ZnMx4tlOKY)
 
 ### Potential shortcomings with the current pipeline
 
@@ -54,7 +58,7 @@ One potential shortcoming would happen when the line's curvature is large. This 
 
 Another shortcoming could be missled with different signs on the street that are ignored. For example the following lines:
 
-a             |  b
+Video 1             |  Video 2
 :-------------------------:|:-------------------------:
 ![alt text][image2]  |  ![alt text][image3] 
 
