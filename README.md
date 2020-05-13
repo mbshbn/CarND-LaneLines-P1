@@ -37,6 +37,7 @@ One potential shortcoming would happen when the line's curvature is large. This 
 
 Another shortcoming could be missled with different signs on the street that are ignored. For example the following lines:
 
+a             |  b
 :-------------------------:|:-------------------------:
 ![alt text][image2]  |  ![alt text][image3] 
 
