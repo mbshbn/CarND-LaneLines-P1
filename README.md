@@ -14,8 +14,6 @@ The goals / steps of this project are the following:
 
 ---
 
-[![alt text][image1]](https://youtu.be/Nyq5kYjLoSI)
-
 ### Pipeline (single images)
 
 My pipeline consisted of the follwoing steps, and the code is called `Lane_line_finding.py`.
@@ -47,7 +45,11 @@ A video consists of images, so I used the above pipeline and applied it to each 
 from moviepy.editor import VideoFileClip
 from IPython.display import HTML
 ```
+example 1             |  example 2
+:-------------------------:|:-------------------------:
+[![alt text][image1]](https://youtu.be/Nyq5kYjLoSI) |  ![alt text][image11] 
 
+[![alt text][image1]](https://youtu.be/Nyq5kYjLoSI)
 ### Potential shortcomings with the current pipeline
 
 One potential shortcoming would happen when the line's curvature is large. This is overcame in another project called [Advanced Lane Line detection](https://github.com/mbshbn/CarND-Advanced-Lane-Lines) in my github repo.
