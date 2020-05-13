@@ -64,13 +64,51 @@ def region_of_interest(img, vertices):
     else:
         ignore_mask_color = 255
 
-    #filling pixels inside the polygon defined by "vertices" with the fill color
+    # filling pixels inside the polygon defined by "vertices" with the fill color
     cv2.fillPoly(mask, vertices, ignore_mask_color)
 
     #returning the image only where mask pixels are nonzero
     masked_image = cv2.bitwise_and(img, mask)
     return masked_image
 
+def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
+    """
+    `img` should be the output of a Canny transform.
+
+    Returns an image with hough lines drawn.
+    """
+    lines = cv2.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap)
+    line_img = np.zeros((img.shape[0], img.shape[1], 3), dtype=np.uint8)
+    draw_lines(line_img, lines)
+    return line_img
+# Python 3 has support for cool math symbols.
+
+def weighted_img(img, initial_img, α=0.8, β=1., γ=0.):
+    """
+    `img` is the output of the hough_lines(), An image with lines drawn on it.
+    Should be a blank image (all black) with lines drawn on it.
+
+    `initial_img` should be the image before any processing.
+
+    The result image is computed as follows:
+
+    initial_img * α + img * β + γ
+    NOTE: initial_img and img must be the same shape!
+    """
+    return cv2.addWeighted(initial_img, α, img, β, γ)
+
+def extrapolate(x,y):
+    z = np.polyfit(x, y, 1)
+    f = np.poly1d(z)
+    #for i in range(min(x), max(x)):
+    #    plt.plot(i, f(i), 'go')
+    #plt.show()
+    x_new = np.linspace(min(x), max(x), 10).astype(int)
+    y_new = f(x_new).astype(int)
+    points_new = list(zip(x_new, y_new))
+    px, py = points_new[0]
+    cx, cy = points_new[-1]
+    return px, py, cx, cy
 
 def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
     """
@@ -122,48 +160,6 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
     #plt.plot((pxn, cxn), (pyn, cyn), 'g')
     #plt.show()
 
-
-
-def extrapolate(x,y):
-    z = np.polyfit(x, y, 1)
-    f = np.poly1d(z)
-    #for i in range(min(x), max(x)):
-    #    plt.plot(i, f(i), 'go')
-    #plt.show()
-    x_new = np.linspace(min(x), max(x), 10).astype(int)
-    y_new = f(x_new).astype(int)
-    points_new = list(zip(x_new, y_new))
-    px, py = points_new[0]
-    cx, cy = points_new[-1]
-    return px, py, cx, cy
-
-def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
-    """
-    `img` should be the output of a Canny transform.
-
-    Returns an image with hough lines drawn.
-    """
-    lines = cv2.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap)
-    line_img = np.zeros((img.shape[0], img.shape[1], 3), dtype=np.uint8)
-    draw_lines(line_img, lines)
-    return line_img
-
-# Python 3 has support for cool math symbols.
-
-def weighted_img(img, initial_img, α=0.8, β=1., γ=0.):
-    """
-    `img` is the output of the hough_lines(), An image with lines drawn on it.
-    Should be a blank image (all black) with lines drawn on it.
-
-    `initial_img` should be the image before any processing.
-
-    The result image is computed as follows:
-
-    initial_img * α + img * β + γ
-    NOTE: initial_img and img must be the same shape!
-    """
-    return cv2.addWeighted(initial_img, α, img, β, γ)
-
 def Lane_Finding_Pipeline_image(image):
     # NOTE: The output you return should be a color image (3 channel) for processing video below
     # TODO: put your pipeline here,
@@ -183,15 +179,15 @@ def Lane_Finding_Pipeline_image(image):
     imshape = image.shape
     ysize = image.shape[0]
     xsize = image.shape[1]
-    vertices = np.array([[(0,ysize),(2.4*xsize/5, 1.19*ysize/2), (2.6*xsize/5, 1.19*ysize/2), (xsize,ysize)]], dtype=np.int32)
+    vertices = np.array([[(0,ysize),(2.4*xsize/5, 1.22*ysize/2), (2.6*xsize/5, 1.22*ysize/2), (xsize,ysize)]], dtype=np.int32)
 
     masked_edges = region_of_interest(edges, vertices)
 
     rho = 2 #distance resolution in pixels of the Hough grid
     theta = np.pi/180 # angular resolution in radians of the Hough grid
     threshold = 15#    # minimum number of votes (intersections in Hough grid cell)
-    min_line_len = 120 #40 #minimum number of pixels making up a line
-    max_line_gap = 100    # 20 #maximum gap in pixels between connectable line segments
+    min_line_len = 40 #40 #minimum number of pixels making up a line
+    max_line_gap = 200    # 20 #maximum gap in pixels between connectable line segments
     line_image = hough_lines(masked_edges, rho, theta, threshold, min_line_len, max_line_gap)
 
     # Create a "color" binary image to combine with line image
@@ -203,12 +199,12 @@ import os
 os.listdir("test_images/")
 
 #reading in an image
-#image_path = "test_images/solidWhiteCurve.jpg"
-#image_path = 'test_images/solidWhiteRight.jpg'
+image_path = "test_images/solidWhiteCurve.jpg"
+image_path = 'test_images/solidWhiteRight.jpg'
 #image_path = 'test_images/solidYellowCurve.jpg'
 #image_path = 'test_images/solidYellowCurve2.jpg'
 #image_path = 'test_images/solidYellowLeft.jpg'
-image_path = 'test_images/whiteCarLaneSwitch.jpg'
+#image_path = 'test_images/whiteCarLaneSwitch.jpg'
 image = mpimg.imread(image_path)
 
 #printing out some stats and plotting
@@ -216,14 +212,17 @@ print('This image is:', type(image), 'with dimensions:', image.shape)
 # plt.imshow(image)  # if you wanted to show a single color channel image called 'gray', for example, call as plt.imshow(gray, cmap='gray')
 # plt.show()
 lines_edges = Lane_Finding_Pipeline_image(image)
+plt.imshow(lines_edges)  # if you wanted to show a single color channel image called 'gray', for example, call as plt.imshow(gray, cmap='gray')
+plt.show()
 # then save them to the test_images_output directory.
-mpimg.imsave("test_images_output/output.png", lines_edges)
-
+mpimg.imsave("test_images_output/output2.png", lines_edges)
+"""
 # Import everything needed to edit/save/watch video clips
 from moviepy.editor import VideoFileClip
 from IPython.display import HTML
 
 white_output = 'test_videos_output/solidWhiteRight.mp4'
+# white_output = 'test_videos_output/challenge2.mp4'
 ## To speed up the testing process you may want to try your pipeline on a shorter subclip of the video
 ## To do so add .subclip(start_second,end_second) to the end of the line below
 ## Where start_second and end_second are integer values representing the start and end of the subclip
@@ -231,5 +230,7 @@ white_output = 'test_videos_output/solidWhiteRight.mp4'
 ##clip1 = VideoFileClip("test_videos/solidWhiteRight.mp4").subclip(0,5)
 
 clip1 = VideoFileClip("test_videos/solidWhiteRight.mp4")
+#clip1 = VideoFileClip("test_videos/challenge.mp4")
 white_clip = clip1.fl_image(Lane_Finding_Pipeline_image) #NOTE: this function expects color images!!
 #white_clip.write_videofile(white_output, audio=False)
+"""
