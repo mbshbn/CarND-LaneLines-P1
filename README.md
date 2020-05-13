@@ -48,7 +48,7 @@ A video consists of images, so I used the above pipeline and applied it to each 
 from moviepy.editor import VideoFileClip
 from IPython.display import HTML
 ```
-example 1             |  example 2
+Image 1             |  Image 2
 :-------------------------:|:-------------------------:
 [![alt text][image4]](https://youtu.be/Nyq5kYjLoSI) |  [![alt text][image5]](https://youtu.be/_ZnMx4tlOKY)
 
@@ -58,7 +58,7 @@ One potential shortcoming would happen when the line's curvature is large. This 
 
 Another shortcoming could be missled with different signs on the street that are ignored. For example the following lines:
 
-a             |  b
+Video 1             |  Video 2
 :-------------------------:|:-------------------------:
 ![alt text][image2]  |  ![alt text][image3] 
 
