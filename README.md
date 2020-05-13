@@ -12,8 +12,8 @@ The goals / steps of this project are the following:
 [image2]: ./examples/shortcoming.jpg "shortcoming"
 [image3]: ./examples/shortcoming2.jpg "shortcoming"
 
-[image4]: ./test_video_output/solidWhiteRight_cover_video.jpg "cover white right video"
-[image5]: ./test_video_output/solidYellowLeft_cover_video.jpg "cover yellow left video"
+[image4]: ./test_video_output/solidWhiteRight_cover_video.png "cover white right video"
+[image5]: ./test_video_output/solidYellowLeft_cover_video.png "cover yellow left video"
 solidWhiteRight_video
 ---
 
